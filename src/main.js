@@ -3,7 +3,8 @@ function loadIpc(td, date) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            td.innerHTML = this.responseText;
+            let ipc = JSON.parse(this.responseText);
+            td.innerHTML = ipc.serie[0].valor;
         }
     };
     xhttp.open("GET", "https://mindicador.cl/api/ipc/" + date, true);
@@ -18,6 +19,7 @@ var transactionOrders = orders.data.transactions.items.filter(function (e) {
     //  (e.type == "trade-in" ||  e.type == "trade-out") 
     return e.market != null && e.market.code == 'BTCCLP';
 });
+
 transactionOrders.forEach(function (order) {
     var row = document.createElement("tr");
     var date = document.createElement("td");
@@ -30,6 +32,8 @@ transactionOrders.forEach(function (order) {
     var commissionCrypto = document.createElement("td");
     var commissionClp = document.createElement("td");
     var cryptoBalance = document.createElement("td");
+    var ipc = document.createElement("td");
+
     row.appendChild(date);
     row.appendChild(currencyPair);
     row.appendChild(type);
@@ -39,6 +43,8 @@ transactionOrders.forEach(function (order) {
     row.appendChild(commissionCrypto);
     row.appendChild(commissionClp);
     row.appendChild(cryptoBalance);
+    row.appendChild(ipc);
+
     var commissionCrytoIn = ((order.cost / order.price) - (order.amount / 100000000)).toFixed(8);
     var commissionCrytoOut = Math.round(((order.amount / 100000000) * order.price) - order.cost);
     date.innerHTML = moment(new Date(order.date)).format('DD/MM/YYYY');
@@ -50,5 +56,7 @@ transactionOrders.forEach(function (order) {
     commissionCrypto.innerHTML = (order.type == "trade-in") ? commissionCrytoIn : 0;
     commissionClp.innerHTML = (order.type == "trade-out") ? commissionCrytoOut : 0;
     cryptoBalance.innerHTML = order.balance / 100000000;
+    loadIpc(ipc, moment(new Date(order.date)).format('DD-MM-YYYY'));
+    
     report.appendChild(row);
 });
