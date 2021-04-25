@@ -1,0 +1,27 @@
+{
+  "name": "orionx_all_orders",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonardoGarciaOlmos/orionx_all_orders.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leonardoGarciaOlmos/orionx_all_orders/issues"
+  },
+  "homepage": "https://github.com/leonardoGarciaOlmos/orionx_all_orders#readme",
+  "dependencies": {
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.2.3"
+  }
+}
